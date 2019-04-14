@@ -7,6 +7,7 @@ Aplicación utilizada en la cursada 2019 de Ingenieria de Software. UTN-FRLP
 * Patricio Toledo
 * Matias Stocki
 * Esteban Salinas
+* Nicolas Sandobal
 
 ## Dependencias
 

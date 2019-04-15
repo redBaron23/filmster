@@ -1,4 +1,4 @@
-# Filmster Grupo 4
+ Filmster Grupo 4
 
 Aplicación utilizada en la cursada 2019 de Ingenieria de Software. UTN-FRLP
 
@@ -6,7 +6,7 @@ Aplicación utilizada en la cursada 2019 de Ingenieria de Software. UTN-FRLP
 
 * Patricio Toledo
 * Matias Stocki
-* Esteban Salinas
+* Salinas Esteban
 * Nicolas Sandobal
 
 ## Dependencias

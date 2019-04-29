@@ -51,6 +51,7 @@ function render(table) {
 }
 
 function update(table, data) {
+    table.selectedRows = []
     table.data = data
     const $body = generateBody(table.header, table.data)
 

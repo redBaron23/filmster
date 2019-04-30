@@ -40,7 +40,7 @@ const Movie = db.define('Movie', {
   tableName: 'Movie'
 })
 
-const getAllMovies = () => Movie.findAll().then(movies => movies.slice(0, 2))
+const getAllMovies = () => Movie.findAll()
 
 const createMovie = (data) =>
 	Movie.sync().then(() =>

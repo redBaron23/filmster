@@ -40,16 +40,16 @@ const Movie = db.define('Movie', {
   tableName: 'Movie'
 })
 
-const getAll = () => Movie.findAll().then(movies => movies)
+const getAllMovies = () => Movie.findAll().then(movies => movies.slice(0, 1))
 
-const create = (data) =>
+const createMovie = (data) =>
 	Movie.sync().then(() =>
 		Movie.create(data)
 	)
 
-const get = (id) => Movie.findOne({where: {id: id}}).then(movie => movie)
+const getMovie = (id) => Movie.findOne({where: {id: id}}).then(movie => movie)
 
-const update = (id, data) => {
+const updateMovie = (id, data) => {
 	return Movie.findOne({where: {id: id}}).then(movie => {
 		if (movie != null) {
 			return movie.update(data).then(d => d)
@@ -58,12 +58,22 @@ const update = (id, data) => {
 	})	
 }
 
+const deleteMovie = (id) => {
+	return Movie.findOne({where: {id: id}}).then(movie => {
+		if (movie != null) {
+			return movie.destroy()
+		}
+		return null
+	})	
+}
+
 const MovieModel = {
 	Movie: Movie,
-	getAll: getAll,
-	create: create,
-	get: get,
-	update: update
+	getAll: getAllMovies,
+	create: createMovie,
+	get: getMovie,
+	update: updateMovie,
+	delete: deleteMovie
 }
 
 module.exports = MovieModel

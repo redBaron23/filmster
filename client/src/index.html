@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/styles/table.css">
     <link rel="stylesheet" href="/styles/main.css">
 </head>
+
 <body>
     <nav class="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -30,7 +31,7 @@
 				<!-Titulo "Peliculas" transformado a mayuscula en el archivo main.css->  
 			  <div class="card-header-title">Películas</div>
                             <div class="card-header-actions">
-                                <button class="button is-small" onclick="alert('En desarrollo');">Agregar</button>
+                                <button id="addMovieBtn class="button is-small" onclick="alert('En desarrollo');">Agregar</button>
                                     <!- Botón agregar muestra alerta al ser clickeado para actividad 1 ->
                                 <button class="button is-small">Editar</button>
                                 <button class="button is-small is-danger">Eliminar</button>
@@ -47,6 +48,106 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Agregar película</p>
+                <button class="delete" aria-label="close" id="closeModalBtn"></button>
+            </header>
+
+            <section class="modal-card-body">
+                <form action="">
+                    <div class="field">
+                        <label class="label">Título</label>
+                        <div class="control">
+                            <input class="input" type="text"
+                                placeholder="Star Wars: A new hope"
+                                id="movieName">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Sinopsis</label>
+                        <div class="control">
+                            <textarea class="textarea"
+                                placeholder="A long time ago in a galaxy far far away..."
+                                id="moviePlot"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Año</label>
+                        <div class="control">
+                            <input class="input" type="date"
+                                placeholder="Text input"
+                                id="movieReleaseDate">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Pais</label>
+                        <div class="control">
+                            <input class="input" type="text"
+                                placeholder="Estados Unidos"
+                                id="movieCountry">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Duración</label>
+                        <div class="control">
+                            <input class="input" type="number"
+                                placeholder="110"
+                                id="movieRuntime">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Lenguaje</label>
+                        <div class="control">
+                            <input class="input" type="text"
+                                placeholder="Ingles"
+                                id="movieLanguage">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Generos</label>
+                        <div class="control">
+                            <input class="input" type="text"
+                                placeholder="Ciencia ficción"
+                                id="movieGeneres">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Guionistas</label>
+                        <div class="control">
+                            <input class="input" type="text"
+                                placeholder="George Lucas"
+                                id="movieWriters">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Directores</label>
+                        <div class="control">
+                            <input class="input" type="text"
+                                placeholder="George Lucas"
+                                id="movieDirectors">
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <footer class="modal-card-foot">
+                <button class="button is-success" id="saveMovieBtn">Guardar</button>
+                <button class="button" id="cancelModalBtn">Cancelar</button>
+            </footer>
         </div>
     </div>
 </body>

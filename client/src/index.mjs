@@ -35,6 +35,7 @@ const $refs = {
     cancelModalBtn: document.querySelector('#cancelModalBtn'),
     saveMovieBtn: document.querySelector('#saveMovieBtn'),
     addMovieBtn: document.querySelector('#addMovieBtn'),
+    editMovieBtn: document.querySelector('#editMovieBtn'),
     closeModalBtn: document.querySelector('#closeModalBtn'),
 
     modal: document.querySelector('#modal'),
@@ -67,7 +68,9 @@ function closeModal() {
 function parseCSV(val) {
     return val.split(',').flatMap(v => v.split());
 }
+function editModal(){//Una vez hecho el add/remove respectivamente se hace facil
 
+}
 /*
  * Guarda una pelicula
  */
@@ -89,6 +92,7 @@ function saveMovie() {
 
 // Levantamos los listeners de la app
 $refs.addMovieBtn.addEventListener('click', openModal)
+$refs.editMovieBtn.addEventListener('click', editModal)
 $refs.cancelModalBtn.addEventListener('click', closeModal)
 $refs.closeModalBtn.addEventListener('click', closeModal)
 $refs.saveMovieBtn.addEventListener('click', saveMovie)

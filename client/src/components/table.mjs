@@ -1,5 +1,7 @@
 import { h, createElement } from '../core/render.mjs';
 
+var checks = 0; 
+
 function generateHeader(headers) {
     const ths = headers.map(function (header) {
         return h('th', {}, header.label);
@@ -64,10 +66,22 @@ function onCheckClicked(table, e) {
         const toggleRow = e.target.row
 
         if (isSelected) {
-            table.selectedRows = [...table.selectedRows, toggleRow]
 
+            // si se checkea entonces sube el contador y activamos sea cual sea el caso
+            document.getElementById("botoneliminar").disabled = false;
+            ++checks;
+            // fin solución por el checked
+
+            table.selectedRows = [...table.selectedRows, toggleRow]
             table.onSelectedRow(toggleRow)
         } else {
+            
+            // si se descheckea entonces baja el contador y nos fijamos si llegó a cero, entonces desactivamos
+            --checks;
+            if (checks <= 0) {
+                document.getElementById("botoneliminar").disabled = true;
+            }  // fin solución unchecked actividad 2
+          
             table.selectedRows = table.selectedRows.filter(function (row) {
                 return row.title !== toggleRow.title
             })

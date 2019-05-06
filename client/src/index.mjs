@@ -83,8 +83,10 @@ function saveMovie() {
         writers: parseCSV($refs.movieWriters.value),
         directors: parseCSV($refs.movieDirectors.value)
     }
-
-    console.log(movie)
+    //Se llama a la función que cargará la pelicula 
+    movieService.createMovie(movie);
+    //Se recarga la página
+    location.reload();
 }
 
 // Levantamos los listeners de la app

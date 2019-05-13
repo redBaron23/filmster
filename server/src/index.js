@@ -2,21 +2,48 @@ const path = require('path')
 
 const morgan = require('morgan')
 const express = require('express')
-const app = express()
 const bodyParser = require('body-parser')
+const detectPort = require('detect-port')
 
+const models = require('./models/index.js')
 const movieRouter = require('./routes/movie.js')
 const client = path.resolve(__dirname, '..', '..', 'client')
 
-app.use(bodyParser.json())
+const inTest = process.env.NODE_ENV === 'test'
 
-app.use(morgan('dev'))
-app.use(express.static(path.resolve(client, 'src')));
-app.use('/assets', express.static(path.resolve(client, 'assets')));
+async function startServer(port=process.env.SERVER_PORT) {
+    port = port || (await detectPort(3000))
+    await models.createTables();
 
-// Rutas
-app.use('/api/v1/movies', movieRouter)
+    const app = express()
+    app.use(bodyParser.json())
 
-app.listen(3000, function (server) {
-    console.log('Server started')
-})
+    !inTest && app.use(morgan('dev'))
+
+    app.use(express.static(path.resolve(client, 'src')));
+    app.use('/assets', express.static(path.resolve(client, 'assets')));
+
+    // Rutas
+    app.use('/api/v1/movies', movieRouter)
+
+    return new Promise(function (resolve) {
+        const server = app.listen(port, function () {
+            !inTest && console.log(`Server started on http://localhost:${port}`)
+
+            const originalClose = server.close.bind(server)
+            server.close = () => {
+                return new Promise(resolveClose => {
+                    originalClose(resolveClose)
+                })
+            }
+
+            resolve(server)
+        });
+    })
+}
+
+if (require.main === module) {
+    startServer()
+}
+
+module.exports = startServer

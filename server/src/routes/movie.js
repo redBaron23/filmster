@@ -11,7 +11,7 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
 	MovieModel.create(req.body).then((data) =>
 		res.status(201).send(data)
-	).catch(_ => res.status(500).send('Error al crear película'))
+	).catch(_ => res.status(500).send(_))
 })
 
 router.get('/:id', function (req, res) {

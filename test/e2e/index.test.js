@@ -134,7 +134,6 @@ test('Se debería habilitar el boton eliminar al seleccionar una película', asy
         directors: ['Robert Zemeckis'],
         writers: ['Robert Zemeckis', 'Bob Gale']
     };
-
     await fetch(`${baseURL}/api/v1/movies`, {
         method: 'POST',
         body: JSON.stringify(movie),
@@ -151,4 +150,38 @@ test('Se debería habilitar el boton eliminar al seleccionar una película', asy
 
     const disab = await page.$('eliminarBtn[disabled]') !== null;
     expect(disab).not.toBe(true); 
+})
+
+test('Se deberia poder agregar una pelicula' , async () => {
+    const movie = {
+        title: 'El dia que me quieras',
+        description: 'Carlos Argüelles is the son of a wealthy man whose only interests in life are business and making money. While trying to succeed in show business he falls in love with a dancer and they elope to marry. But success is not easy to obtain.',
+        year: 1935,
+        runtime: 82,
+        country: 'United States',
+        language: 'Spanish',
+        genres: ['Drama'],
+        directors: ['John Reinhardt'],
+        writers: ['Alfredo Le Pera']
+    };    
+    await page.$eval('#addMovieBtn', btn => btn.click());
+
+    await page.$eval('#movieRuntime', el => el.value = 82);
+    await page.$eval('#movieName', el => el.value = "El dia que me quieras");
+    await page.$eval('#moviePlot', el => el.value = "Carlos Argüelles is the son of a wealthy man whose only interests in life are business and making money. While trying to succeed in show business he falls in love with a dancer and they elope to marry. But success is not easy to obtain.");
+    await page.$eval('#movieReleaseDate', el => el.value = 1935);
+    await page.$eval('#movieGeneres', el => el.value = "Drama");
+    await page.$eval('#movieWriters', el => el.value = "Alfredo Le Pera");
+    await page.$eval('#movieDirectors', el => el.value = "John Reinhardt");
+
+    await page.$eval('#saveMovieBtn', btn => btn.click());
+
+    await page.reload();
+    const rows = await page.$$('table#movies tbody tr');
+
+    expect(rows.length).toBe(1);
+
+    await page.$eval('table#movies tbody tr td:nth-child(1) input', firstCheck => firstCheck.click());
+    const selectedRows = await page.evaluate(() => window.table.getSelectedRows());
+    expect(selectedRows[0].title).toBe("El dia que me quieras");
 })

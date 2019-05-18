@@ -93,6 +93,7 @@ test('Editar pelicula', async () =>{
         directors: ['Robert Zemeckis'],
         writers: ['Robert Zemeckis', 'Bob Gale']
     };
+
     //Insertamos pelicula
     const movieCreated = await MovieModels.create(movieData);    
     //Modifico con la otra pelicula
@@ -102,4 +103,26 @@ test('Editar pelicula', async () =>{
     //Comparo lo que subi al update, con lo que modifico
     expect(recivedMovie.title).toBe(movieDataUpdate.title);
     expect(recivedMovie.year).toBe(movieDataUpdate.year);       
+});
+
+test("Eliminar pelicula" ,  async () =>{
+    const movieData = {
+        title: 'El dia que me quieras',
+        description: 'Carlos Argüelles is the son of a wealthy man whose only interests in life are business and making money. While trying to succeed in show business he falls in love with a dancer and they elope to marry. But success is not easy to obtain.',
+        year: 1935,
+        runtime: 82,
+        country: 'United States',
+        language: 'Spanish',
+        genres: ['Drama'],
+        directors: ['John Reinhardt'],
+        writers: ['Alfredo Le Pera']
+    };    
+    //Insertamos pelicula
+    const movieCreated = await MovieModels.create(movieData);
+    //Borrar pelicula recien insertada por id
+    await MovieModels.delete(movieCreated.id);
+    //Buscar pelicula recien insertada por id
+    const recivedMovie = await MovieModels.get(movieCreated.id);
+    //Se fija que la pelicula se haya eliminado
+    expect(recivedMovie).toBe(null);
 });

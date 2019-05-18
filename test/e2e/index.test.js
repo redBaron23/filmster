@@ -144,12 +144,11 @@ test('Se debería habilitar el boton eliminar al seleccionar una película', asy
     });
 
     await page.reload();
-    const rows = await page.$$('table#movies tbody tr');
-
-    expect(rows.length).toBe(1);
 
     await page.$eval('table#movies tbody tr td:nth-child(1) input', firstCheck => firstCheck.click());
-    const eliminarBtn = await page.$('.card-header-actions button:nth-child(1)');
+    const eliminarBtn = await page.$('.card-header-actions button:nth-child(3)'); // elijo eliminar
     expect(eliminarBtn).not.toBe(null);
-    expect(eliminarBtn).not.toBe('disabled');
+
+    const disab = await page.$('eliminarBtn[disabled]') !== null;
+    expect(disab).not.toBe(true); 
 })

@@ -31,7 +31,11 @@ async function startServer(port=process.env.SERVER_PORT) {
             !inTest && console.log(`Server started on http://localhost:${port}`)
 
             const originalClose = server.close.bind(server)
-            server.close = () => {
+            server.close = async (clearDB) => {
+                if (inTest) {
+                    await models.dropTables();
+                }
+
                 return new Promise(resolveClose => {
                     originalClose(resolveClose)
                 })

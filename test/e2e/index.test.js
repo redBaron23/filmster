@@ -7,7 +7,7 @@ async function getText(element) {
 
 async function isVisible(element) {
     if (typeof element === 'string') {
-        element = page.$(element);
+        element = await page.$(element);
     }
 
     return page.evaluate(element => {
@@ -121,3 +121,4 @@ test('Se debería poder seleccionar una película', async () => {
     expect(selectedRows.length).toBe(1);
     expect(selectedRows[0].title).toBe(movie.title);
 })
+
